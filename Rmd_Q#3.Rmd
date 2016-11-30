@@ -1,0 +1,81 @@
+---
+title: ' R Package in Disease Surveillance'
+author: "Tulsi Ram Gompo"
+date: "11/18/2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Talking about the Journal that describes about the usage  of a R Packages
+
+I found the Journal Article that describes about the R package "surveillance".The title of the Journal is Monitoring Count Time Series in R:Aberation Detection in Public Health Surveillance by Salmon et al,2016.
+
+# Why packages has been created ?
+
+The package "surveillance" has been created to detect  abnormal count in the time series of count of cases that gives a warning signs to timely application of the control measures in public health. 
+Inspite of availablity of many statistical algorithms the these are not handy to use for all the practioners.While, the surveillance package gives a ready to use tool for he routine data managemnt for the epidemiologist.
+
+ 
+# What are the interesting features of "surveillance" pacakage? 
+The package is open source applications that helps  not only in the detection of the aberation but also visulaization and analysis of the time series.There are not so fancy fetures such that every practioners can apply in the routine practice. 
+Next, the package has functions that serves in the epidemic modelling purposes.
+
+ 
+```{r message=FALSE,echo=FALSE}
+load("/Users/Tulsigompo/Downloads/salmNewport (1).RData")
+library(surveillance)
+library(dplyr)
+# creation of an object of class sts
+sal_outbreak<-all.equal(observed(salmNewport),
+          observed(as(as(salmNewport,"ts"),"sts")))
+# time series for a all year
+time_series_1<-plot(salmNewport,xaxis.tickFreq = list(`%V`= atChange,`%m`= atChange,
+ `%G` = atChange), xaxis.labelFreq = list(`%Y` = atMedian),
+xaxis.labelFormat = "%Y", type = observed ~ time)
+```
+ 
+ 
+  **Time series for salmonella Newport outbreak in each federal state of germany**
+  
+This time series below is represented as a multivariate sts object whose dimensions correspond to the 16 German federal states.
+  
+ 
+
+``` {r message=FALSE,echo=FALSE}
+time_series_2 <- plot(salmNewport,xaxis.tickFreq = list(`%V`= atChange, `%m`= atChange,
+ `%G` = atChange), xaxis.labelFreq = list(`%Y` = atMedian),
+  xaxis.labelFormat = "%Y", type = observed ~ time|unit)
+
+```
+
+
+
+ **Use of aberation detection algorithms**
+
+
+
+```{r  message=FALSE, echo=FALSE}
+in2011 <- which(isoWeekYear(epoch(salmNewport))$ISOYear == 2011)
+salmNewportGermany <- aggregate(salmNewport, by = "unit")
+control <- list(range = in2011, method = "C1", alpha = 0.05)
+ surv <- earsC(salmNewportGermany, control = control)
+ plot(surv)
+```
+
+Figure : S. Newport in Germany in 2011 monitored by the glrnb function.
+
+```{r message=FALSE,echo=FALSE}
+
+phase1 <- which(isoWeekYear(epoch(salmNewportGermany))$ISOYear < 2011)
+phase2 <- in2011
+ control = list(range = phase2, c.ARL = 4, theta = log(2), ret = "cases",
+ mu0 = list(S = 1, trend = TRUE, refit = FALSE))
+ salmGlrnb <- glrnb(salmNewportGermany, control = control)
+ plot(salmGlrnb)
+ 
+ 
+```
+

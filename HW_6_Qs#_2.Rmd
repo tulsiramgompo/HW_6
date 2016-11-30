@@ -1,0 +1,33 @@
+---
+title: "HW_6_Qs#2"
+author: "Tulsi Ram Gompo"
+date: "11/19/2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Question_2**
+Read the article Science Isn’t Broken on FiveThirtyEight. This article includes an interactive graphic. In a half page, give your opinion on whether this interactive graphic helps convey the main message of the article. Also, describe in general details how you might be able to create a graphic like this in R.
+
+           
+**Answer**
+
+
+The main maessage of the article is that many research outcomes are falsified.The researcher manipulated the statistical results for their favour.For instances, they used the significance of the p-value as tool to decide if the evidence exists or not.The researchers are more likely to misue the result of P-values and they even go for the P-hacking.While, some researchers have intentions  on focusing their study to make p-value significant; which in turns make the article publishable that saves their tenures and job promotions.
+
+The author of the article"Science is not broken" has used the  apps to make interactive graphics  to test for the p-value.The influence of the political parties either Democrats or Republican on the economy is shown with interactive environments. The inputs of the of all the political parameters to see the relationships with the country economy.The graphics also shows the significance of the p-value.But the p-value here does not give the strength of the relationships or evidence.
+
+Secondly, the authors talked about the how the results are biased to wards subjective evidence.For example, different researchers are given same data set with the same research question"Are the soccer refrees more likey to give red cards to dark skined player than fair skin?".Later, around 70% found the positive significance effect and 30% did not found the significance.Also,the research designs of all the researchers were also different.The researh might have been guided by the preconcived idea against the dark skinned players.
+ 
+
+We can apply such graphics in R with shiny apps of R studio with following steps.
+a) Shiny apps is interactive graphics applications and has *user interface.R file* and *server.R file* with some subdirectories.
+The *server.R file* files tells about the what codes to run and sending the application back to user which is analogos to kitchen of the restaurant where the order is placed and food is cooked and brings the final product at the dining area.
+
+The *ui.R file* file tells about the outlook of the applications.There are buttons and sliders and tells where to go.It is analogos to the dinning area of the resturant where the customer can make order and receive what type of food he wants.
+
+
+
